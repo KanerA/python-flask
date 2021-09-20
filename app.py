@@ -8,6 +8,8 @@ load_dotenv()
 app = Flask(__name__)
 uri = os.getenv("MONGO_URI")
 
+app.config["MONGO_URI"] = uri
+mongo = PyMongo(app)
 
 @app.route("/")
 def home():
