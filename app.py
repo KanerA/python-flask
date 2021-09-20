@@ -11,12 +11,21 @@ uri = os.getenv("MONGO_URI")
 app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
 
-@app.route("/")
-def home():
-    return "Home"
+
 def parse_json(data):
     json_str = dumps(data)
     return json_str
+
+
+@app.route("/paste/get", methods=["GET"])
+def pastes():
+    data = mongo.db.pastes.find({})
+    array = list(data)
+    dataArr = []
+    for i in range(data.count()):
+        parsed = parse_json(array[i])
+        dataArr.append(parsed)
+    return jsonify(dataArr)
 
 
 if __name__ == "__main__":
