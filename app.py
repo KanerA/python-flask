@@ -14,6 +14,9 @@ mongo = PyMongo(app)
 @app.route("/")
 def home():
     return "Home"
+def parse_json(data):
+    json_str = dumps(data)
+    return json_str
 
 
 if __name__ == "__main__":
